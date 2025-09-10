@@ -9,6 +9,18 @@ import Footer from './components/Footer';
 import Dock from './components/Dock';
 
 function App() {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const dockItems = [
     { 
       icon: <Home size={18} />, 
@@ -44,24 +56,6 @@ function App() {
       onClick: () => {
         document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
       }
-    }
-  ];
-
-  const socialDockItems = [
-    { 
-      icon: <Github size={18} />, 
-      label: 'GitHub', 
-      onClick: () => window.open('https://github.com', '_blank')
-    },
-    { 
-      icon: <Mail size={18} />, 
-      label: 'Gmail', 
-      onClick: () => window.open('mailto:vangarasandeepkumar@gmail.com', '_blank')
-    },
-    { 
-      icon: <Linkedin size={18} />, 
-      label: 'LinkedIn', 
-      onClick: () => window.open('https://linkedin.com', '_blank')
     }
   ];
 
@@ -103,7 +97,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white relative">
+    <div className="min-h-screen bg-white relative overflow-x-hidden">
       <Hero />
       <About />
       <Skills />
@@ -111,28 +105,14 @@ function App() {
       <Contact />
       <Footer />
       
-      {/* Fixed Dock */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
+      {/* Fixed Dock - moved to top */}
+      <div className={`fixed top-0 left-0 right-0 z-50 pointer-events-none ${isMobile ? 'pt-safe' : ''}`}>
         <div className="pointer-events-auto">
           <Dock 
             items={dockItems}
-            panelHeight={68}
-            baseItemSize={50}
-            magnification={70}
-          />
-        </div>
-      </div>
-      
-      {/* Social Media Dock */}
-      <div className="fixed left-0 top-0 bottom-0 z-40 pointer-events-none">
-        <div className="pointer-events-auto">
-          <Dock 
-            items={socialDockItems}
-            isVertical={true}
-            panelHeight={180}
-            baseItemSize={40}
-            magnification={55}
-            distance={150}
+            panelHeight={isMobile ? 56 : 68}
+            baseItemSize={isMobile ? 40 : 50}
+            magnification={isMobile ? 50 : 70}
           />
         </div>
       </div>

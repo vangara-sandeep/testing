@@ -92,10 +92,10 @@ function DockLabel({ children, className = '', isVertical = false, ...rest }) {
           initial={{ opacity: 0, y: 0 }}
           animate={{ opacity: 1, y: -10 }}
           exit={{ opacity: 0, y: 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.15, ease: "easeOut" }}
           className={`${isVertical ? 'dock-label-right' : 'dock-label'} ${className}`}
           role="tooltip"
-          style={isVertical ? { y: '-50%' } : { x: '-50%' }}
+          style={isVertical ? {} : {}}
         >
           {children}
         </motion.div>
@@ -115,7 +115,7 @@ export default function Dock({
   spring = { mass: 0.1, stiffness: 150, damping: 12 },
   magnification = 70,
   distance = 200,
-  panelHeight = 68,
+  panelHeight = 158,
   dockHeight = 256,
   baseItemSize = 50
 }) {
@@ -126,11 +126,18 @@ export default function Dock({
     () => Math.max(dockHeight, magnification + magnification / 2 + 4),
     [magnification, dockHeight]
   );
-  const heightRow = useTransform(isHovered, [0, 1], [panelHeight, maxHeight]);
-  const height = useSpring(heightRow, spring);
+  const heightRow = useTransform(isHovered, [0, 1], [panelHeight, isVertical ? maxHeight : panelHeight]);
+  const height = useSpring(heightRow, { ...spring, damping: spring.damping * 1.5 });
 
   return (
-    <motion.div style={{ height, scrollbarWidth: 'none' }} className="dock-outer">
+    <motion.div 
+      style={{ 
+        height: isVertical ? height : panelHeight, 
+        scrollbarWidth: 'none',
+        willChange: 'height'
+      }} 
+      className="dock-outer"
+    >
       <motion.div
         onMouseMove={({ pageX, pageY }) => {
           isHovered.set(1);
