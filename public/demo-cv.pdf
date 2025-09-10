@@ -1,0 +1,191 @@
+%PDF-1.4
+1 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+
+2 0 obj
+<<
+/Type /Pages
+/Kids [3 0 R]
+/Count 1
+>>
+endobj
+
+3 0 obj
+<<
+/Type /Page
+/Parent 2 0 R
+/MediaBox [0 0 612 792]
+/Resources <<
+/Font <<
+/F1 4 0 R
+/F2 5 0 R
+>>
+>>
+/Contents 6 0 R
+>>
+endobj
+
+4 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica-Bold
+>>
+endobj
+
+5 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica
+>>
+endobj
+
+6 0 obj
+<<
+/Length 2800
+>>
+stream
+BT
+/F1 24 Tf
+50 750 Td
+(SANDEEP VANGARA) Tj
+0 -30 Td
+/F2 14 Tf
+(DevOps Engineer) Tj
+0 -40 Td
+/F2 12 Tf
+(Email: vangarasandeepkumar@gmail.com) Tj
+0 -20 Td
+(Phone: +91-7331132162) Tj
+0 -20 Td
+(Location: Hyderabad, India) Tj
+
+0 -50 Td
+/F1 16 Tf
+(PROFESSIONAL SUMMARY) Tj
+0 -25 Td
+/F2 11 Tf
+(Experienced DevOps Engineer with 5+ years of expertise in cloud infrastructure,) Tj
+0 -15 Td
+(automation, and continuous integration/deployment pipelines. Proven track record) Tj
+0 -15 Td
+(of reducing deployment times by 80% while improving system reliability across) Tj
+0 -15 Td
+(multiple organizations. Specialized in AWS, Kubernetes, and Infrastructure as Code.) Tj
+
+0 -40 Td
+/F1 16 Tf
+(TECHNICAL SKILLS) Tj
+0 -25 Td
+/F1 12 Tf
+(Cloud Platforms:) Tj
+/F2 11 Tf
+( AWS, Azure, Google Cloud Platform) Tj
+0 -20 Td
+/F1 12 Tf
+(Containerization:) Tj
+/F2 11 Tf
+( Docker, Kubernetes, Helm, Docker Compose) Tj
+0 -20 Td
+/F1 12 Tf
+(CI/CD:) Tj
+/F2 11 Tf
+( Jenkins, GitHub Actions, GitLab CI, Bamboo) Tj
+0 -20 Td
+/F1 12 Tf
+(Infrastructure as Code:) Tj
+/F2 11 Tf
+( Terraform, Ansible, CloudFormation) Tj
+0 -20 Td
+/F1 12 Tf
+(Monitoring:) Tj
+/F2 11 Tf
+( Prometheus, Grafana, New Relic, Dynatrace) Tj
+0 -20 Td
+/F1 12 Tf
+(Security:) Tj
+/F2 11 Tf
+( OWASP, HashiCorp Vault, SSL/TLS, Security Scanning) Tj
+
+0 -40 Td
+/F1 16 Tf
+(PROFESSIONAL EXPERIENCE) Tj
+0 -25 Td
+/F1 13 Tf
+(Senior DevOps Engineer) Tj
+0 -18 Td
+/F2 11 Tf
+(Tech Solutions Inc. | 2021 - Present) Tj
+0 -20 Td
+(• Designed and implemented multi-cloud infrastructure supporting 1M+ daily users) Tj
+0 -15 Td
+(• Reduced deployment time by 80% through automated CI/CD pipeline implementation) Tj
+0 -15 Td
+(• Achieved 99.9% uptime through robust monitoring and alerting systems) Tj
+0 -15 Td
+(• Led migration of 20+ microservices to Kubernetes, improving scalability) Tj
+
+0 -30 Td
+/F1 13 Tf
+(DevOps Engineer) Tj
+0 -18 Td
+/F2 11 Tf
+(Cloud Innovations Ltd. | 2019 - 2021) Tj
+0 -20 Td
+(• Implemented Infrastructure as Code using Terraform and Ansible) Tj
+0 -15 Td
+(• Built comprehensive security framework achieving SOC2 compliance) Tj
+0 -15 Td
+(• Automated deployment processes reducing manual errors by 95%) Tj
+0 -15 Td
+(• Mentored junior team members on DevOps best practices) Tj
+
+0 -40 Td
+/F1 16 Tf
+(EDUCATION) Tj
+0 -25 Td
+/F1 12 Tf
+(Bachelor of Technology in Computer Science) Tj
+0 -18 Td
+/F2 11 Tf
+(JNTU Hyderabad | 2015 - 2019) Tj
+
+0 -30 Td
+/F1 16 Tf
+(CERTIFICATIONS) Tj
+0 -25 Td
+/F2 11 Tf
+(• AWS Certified Solutions Architect - Professional) Tj
+0 -15 Td
+(• Certified Kubernetes Administrator \(CKA\)) Tj
+0 -15 Td
+(• HashiCorp Certified: Terraform Associate) Tj
+0 -15 Td
+(• Docker Certified Associate) Tj
+
+ET
+endstream
+endobj
+
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000245 00000 n 
+0000000317 00000 n 
+0000000384 00000 n 
+trailer
+<<
+/Size 7
+/Root 1 0 R
+>>
+startxref
+3235
+%%EOF
