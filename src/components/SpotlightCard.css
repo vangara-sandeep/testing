@@ -1,0 +1,66 @@
+.card-spotlight {
+  position: relative;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  overflow: hidden;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.card-spotlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 80%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.card-spotlight:hover::before,
+.card-spotlight:focus-within::before {
+  opacity: 1;
+}
+
+.card-spotlight:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Button variant */
+.card-spotlight.spotlight-button {
+  padding: 1rem 2rem;
+  border-radius: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.card-spotlight.spotlight-button:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* Small card variant */
+.card-spotlight.spotlight-small {
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+/* Skill card variant */
+.card-spotlight.spotlight-skill {
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.9);
+}
