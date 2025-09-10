@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'motion/react';
-import { Children, cloneElement, useEffect, useMemo, useRef, useState } from 'react';
+import { Children, cloneElement, useEffect, useMemo, useRef, useState, useCallback } from 'react';
 
 import './Dock.css';
 
@@ -121,6 +121,8 @@ export default function Dock({
 }) {
   const mouseX = useMotionValue(Infinity);
   const isHovered = useMotionValue(0);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const maxHeight = useMemo(
     () => Math.max(dockHeight, magnification + magnification / 2 + 4),
@@ -129,6 +131,38 @@ export default function Dock({
   const heightRow = useTransform(isHovered, [0, 1], [panelHeight, isVertical ? maxHeight : panelHeight]);
   const height = useSpring(heightRow, { ...spring, damping: spring.damping * 1.5 });
 
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+    const scrollDifference = currentScrollY - lastScrollY;
+    
+    // Show dock when scrolling up or at the top
+    if (scrollDifference < 0 || currentScrollY < 100) {
+      setIsVisible(true);
+    }
+    // Hide dock when scrolling down and not at the top
+    else if (scrollDifference > 0 && currentScrollY > 100) {
+      setIsVisible(false);
+    }
+    
+    setLastScrollY(currentScrollY);
+  }, [lastScrollY]);
+
+  useEffect(() => {
+    let ticking = false;
+    
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [handleScroll]);
   return (
     <motion.div 
       style={{ 
@@ -151,7 +185,7 @@ export default function Dock({
           isHovered.set(0);
           mouseX.set(Infinity);
         }}
-        className={`${isVertical ? 'dock-panel-right' : 'dock-panel'} ${className}`}
+        className={`${isVertical ? 'dock-panel-right' : 'dock-panel'} ${className} ${!isVisible ? 'dock-hidden' : ''}`}
         style={{ height: panelHeight }}
         role="toolbar"
         aria-label="Application dock"

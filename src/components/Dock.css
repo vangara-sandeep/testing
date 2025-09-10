@@ -24,16 +24,23 @@
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.12),
     0 2px 8px rgba(0, 0, 0, 0.08);
-  padding: 0.5rem 0.5rem 0;
+  padding: 0.5rem;
   will-change: transform;
   backface-visibility: hidden;
   z-index: 50;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.dock-panel.dock-hidden {
+  transform: translateX(-50%) translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
   .dock-panel {
     gap: 0.5rem;
-    padding: 0.375rem 0.375rem 0;
+    padding: 0.375rem;
     border-radius: 0.75rem;
   }
 }
@@ -59,6 +66,13 @@
   will-change: transform;
   backface-visibility: hidden;
   z-index: 40;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.dock-panel-right.dock-hidden {
+  transform: translateY(-50%) translateX(100%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Tablet and mobile - combine both behaviors */
@@ -110,6 +124,7 @@
   --spotlight-color: rgba(59, 130, 246, 0.3);
   will-change: transform, width, height;
   backface-visibility: hidden;
+  padding: 0;
 }
 
 @media (max-width: 768px) {
