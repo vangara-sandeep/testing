@@ -137,3 +137,14 @@ select:focus {
 .text-gray-900 {
   color: #111827;
 }
+
+/* Skill pill hover effects */
+.skill-pill:hover {
+  background-color: var(--hover-bg) !important;
+  color: var(--hover-text) !important;
+  border-color: var(--hover-border) !important;
+}
+
+.skill-pill:hover .w-2 {
+  background-color: var(--hover-text) !important;
+}

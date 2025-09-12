@@ -58,30 +58,37 @@ const About = () => {
           </div>
 
           <div className="relative">
-            <SpotlightCard 
-              className=""
-              spotlightColor="rgba(59, 130, 246, 0.3)"
-            >
-              <div className="space-y-4">
-                {stats.map((stat, index) => (
-                  <SpotlightCard
-                    key={index}
-                    className="spotlight-small flex items-center space-x-4"
-                    spotlightColor="rgba(59, 130, 246, 0.2)"
-                  >
-                    <div className="p-3 bg-blue-500/10 rounded-full">
-                      <stat.icon className="w-6 h-6 text-blue-600" />
+            <div className="space-y-4">
+              {stats.map((stat, index) => (
+                <SpotlightCard
+                  key={index}
+                  className="spotlight-small flex items-center space-x-4"
+                  spotlightColor={
+                    index === 0 ? "rgba(59, 130, 246, 0.3)" :
+                    index === 1 ? "rgba(20, 184, 166, 0.3)" :
+                    "rgba(147, 51, 234, 0.3)"
+                  }
+                >
+                  <div className={`p-3 rounded-full ${
+                    index === 0 ? 'bg-blue-500/10' :
+                    index === 1 ? 'bg-teal-500/10' :
+                    'bg-purple-500/10'
+                  }`}>
+                    <stat.icon className={`w-6 h-6 ${
+                      index === 0 ? 'text-blue-600' :
+                      index === 1 ? 'text-teal-600' :
+                      'text-purple-600'
+                    }`} />
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900">
+                      {stat.value}
                     </div>
-                    <div>
-                      <div className="text-2xl font-bold text-gray-900">
-                        {stat.value}
-                      </div>
-                      <div className="text-gray-600">{stat.label}</div>
-                    </div>
-                  </SpotlightCard>
-                ))}
-              </div>
-            </SpotlightCard>
+                    <div className="text-gray-600">{stat.label}</div>
+                  </div>
+                </SpotlightCard>
+              ))}
+            </div>
           </div>
         </div>
       </div>

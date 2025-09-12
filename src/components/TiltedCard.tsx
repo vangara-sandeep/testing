@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
+import { Download } from 'lucide-react';
 import './TiltedCard.css';
 
 const springValues = {
@@ -22,6 +23,9 @@ interface TiltedCardProps {
   showTooltip?: boolean;
   overlayContent?: React.ReactNode;
   displayOverlayContent?: boolean;
+  // Download functionality
+  showDownloadCV?: boolean;
+  onDownloadCV?: () => void;
 }
 
 export default function TiltedCard({
@@ -37,7 +41,10 @@ export default function TiltedCard({
   showMobileWarning = true,
   showTooltip = true,
   overlayContent = null,
-  displayOverlayContent = false
+  displayOverlayContent = false,
+  // Download functionality
+  showDownloadCV = false,
+  onDownloadCV
 }: TiltedCardProps) {
   const ref = useRef<HTMLElement>(null);
 
@@ -89,6 +96,10 @@ export default function TiltedCard({
     rotateFigcaption.set(0);
   }
 
+  const handleDownloadCV = () => {
+    onDownloadCV?.();
+  };
+
   return (
     <figure
       ref={ref}
@@ -127,6 +138,19 @@ export default function TiltedCard({
 
         {displayOverlayContent && overlayContent && (
           <motion.div className="tilted-card-overlay">{overlayContent}</motion.div>
+        )}
+
+        {/* Download CV Button */}
+        {showDownloadCV && (
+          <button
+            className="tilted-card-download-btn"
+            onClick={handleDownloadCV}
+            type="button"
+            aria-label="Download CV"
+          >
+            <Download size={16} />
+            Download CV
+          </button>
         )}
       </motion.div>
 

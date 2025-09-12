@@ -34,6 +34,11 @@
   text-align: center;
   font-size: 0.875rem;
   display: none;
+  color: #6b7280;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(10px);
 }
 
 @media (max-width: 640px) {
@@ -105,4 +110,63 @@
   z-index: 3;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   white-space: nowrap;
+}
+
+/* Download CV Button Styles */
+.tilted-card-download-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  padding: 12px 20px;
+  pointer-events: auto;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 1;
+  white-space: nowrap;
+}
+
+.tilted-card-download-btn:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .tilted-card-download-btn {
+    bottom: 15px;
+    padding: 10px 16px;
+    font-size: 11px;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tilted-card-download-btn {
+    bottom: 12px;
+    padding: 8px 14px;
+    font-size: 10px;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 320px) {
+  .tilted-card-download-btn {
+    padding: 6px 12px;
+    font-size: 9px;
+    gap: 4px;
+  }
 }
