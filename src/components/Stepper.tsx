@@ -44,12 +44,22 @@ export default function Stepper({
 
   const handleNext = () => {
     if (!isLastStep) {
+      // Call onStepChange to validate before proceeding
+      const canProceed = onStepChange(currentStep + 1);
+      if (canProceed === false) {
+        return; // Don't proceed if validation fails
+      }
       setDirection(1);
       updateStep(currentStep + 1);
     }
   };
 
   const handleComplete = () => {
+    // Call onStepChange to validate before completing
+    const canProceed = onStepChange(currentStep + 1);
+    if (canProceed === false) {
+      return; // Don't proceed if validation fails
+    }
     setDirection(1);
     updateStep(totalSteps + 1);
   };
@@ -188,11 +198,12 @@ function StepIndicator({ step, currentStep, onClickStep, disableStepIndicators }
   const status = currentStep === step ? 'active' : currentStep < step ? 'inactive' : 'complete';
 
   const handleClick = () => {
-    if (step !== currentStep && !disableStepIndicators) onClickStep(step);
+    // Disabled: Don't allow clicking on step indicators
+    // if (step !== currentStep && !disableStepIndicators) onClickStep(step);
   };
 
   return (
-    <motion.div onClick={handleClick} className="step-indicator" animate={status} initial={false}>
+    <motion.div onClick={handleClick} className="step-indicator" animate={status} initial={false} style={{ cursor: 'default' }}>
       <motion.div
         variants={{
           inactive: { scale: 1, backgroundColor: '#e5e7eb', color: '#6b7280' },

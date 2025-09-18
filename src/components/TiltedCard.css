@@ -8,22 +8,22 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  max-width: min(90vw, 500px);
-  max-height: min(80vh, 600px);
+  max-width: min(60vw, 400px);
+  max-height: min(60vh, 500px);
 }
 
 @media (max-width: 768px) {
   .tilted-card-figure {
-    max-width: min(85vw, 350px);
-    max-height: min(60vh, 400px);
+    max-width: min(70vw, 300px);
+    max-height: min(50vh, 350px);
     perspective: 600px;
   }
 }
 
 @media (max-width: 480px) {
   .tilted-card-figure {
-    max-width: min(80vw, 280px);
-    max-height: min(50vh, 320px);
+    max-width: min(75vw, 280px);
+    max-height: min(45vh, 320px);
     perspective: 500px;
   }
 }

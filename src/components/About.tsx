@@ -7,13 +7,13 @@ const About = () => {
   const aboutContainerRef = React.useRef<HTMLDivElement>(null);
 
   const stats = [
-    { icon: Award, value: '5+', label: 'Years Experience' },
+    { icon: Award, value: '6+', label: 'Years Experience' },
     { icon: Users, value: '50+', label: 'Projects Deployed' },
-    { icon: Zap, value: '99.9%', label: 'Uptime Achieved' },
+    { icon: Zap, value: '99.9%', label: 'Uptime Achieved' }, 
   ];
 
   return (
-    <section id="about" ref={aboutContainerRef} className="py-12 sm:py-16 lg:py-20 bg-white relative px-4 sm:px-6 lg:pl-20">
+    <section id="about" ref={aboutContainerRef} className="py-12 sm:py-16 lg:py-20 bg-white relative px-4 sm:px-6 lg:pl-20 pt-20 sm:pt-24 lg:pt-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <div className="mb-6">

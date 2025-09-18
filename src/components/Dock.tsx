@@ -1,13 +1,13 @@
 'use client';
 
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'motion/react';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { Children, cloneElement, useEffect, useMemo, useRef, useState, useCallback } from 'react';
 
 import './Dock.css';
 
-function DockItem({ children, className = '', onClick, mouseX, spring, distance, magnification, baseItemSize, isVertical = false }) {
+function DockItem({ children, className = '', onClick, mouseX, spring, distance, magnification, baseItemSize, isVertical = false, isMobile = false }) {
   const ref = useRef(null);
-  const isHovered = useMotionValue(0);
+  const [isHovered, setIsHovered] = useState(false);
   const [spotlightColor, setSpotlightColor] = useState('rgba(59, 130, 246, 0.3)');
 
   const mouseDistance = useTransform(mouseX, val => {
@@ -38,7 +38,7 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
   };
 
   const handleMouseEnter = () => {
-    isHovered.set(1);
+    setIsHovered(true);
     // Set different spotlight colors for variety
     const colors = [
       'rgba(59, 130, 246, 0.3)',   // blue
@@ -51,61 +51,58 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
     setSpotlightColor(randomColor);
   };
 
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
     <motion.div
       ref={ref}
       style={{
-        width: size,
-        height: size
+        width: isMobile ? size : 'auto',
+        height: size,
+        minWidth: isMobile ? baseItemSize : 'auto',
+        padding: isMobile ? '0' : '0.5rem 1rem'
       }}
       onHoverStart={handleMouseEnter}
-      onHoverEnd={() => isHovered.set(0)}
-      onFocus={() => isHovered.set(1)}
-      onBlur={() => isHovered.set(0)}
+      onHoverEnd={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocus={() => setIsHovered(true)}
+      onBlur={() => setIsHovered(false)}
       onClick={onClick}
       onMouseMove={handleMouseMove}
-      className={`dock-item ${className}`}
+      className={`dock-item ${isMobile ? 'dock-item-mobile' : 'dock-item-desktop'} ${className}`}
       tabIndex={0}
       role="button"
       aria-haspopup="true"
     >
-      {Children.map(children, child => cloneElement(child, { isHovered }))}
+      {Children.map(children, child => cloneElement(child, { isHovered, isVertical, isMobile }))}
     </motion.div>
   );
 }
 
-function DockLabel({ children, className = '', isVertical = false, ...rest }) {
-  const { isHovered } = rest;
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const unsubscribe = isHovered.on('change', latest => {
-      setIsVisible(latest === 1);
-    });
-    return () => unsubscribe();
-  }, [isHovered]);
-
+function DockContent({ icon, label, isMobile = false }) {
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: 1, y: -10 }}
-          exit={{ opacity: 0, y: 0 }}
-          transition={{ duration: 0.15, ease: "easeOut" }}
-          className={`${isVertical ? 'dock-label-right' : 'dock-label'} ${className}`}
-          role="tooltip"
-          style={isVertical ? {} : {}}
-        >
-          {children}
-        </motion.div>
+    <div className="dock-content">
+      {isMobile ? (
+        // Mobile: Show only icon
+        <div className="dock-icon">
+          {icon}
+        </div>
+      ) : (
+        // Desktop: Show icon + text
+        <div className="dock-desktop-content">
+          <div className="dock-icon-small">
+            {icon}
+          </div>
+          <span className="dock-text">
+            {label}
+          </span>
+        </div>
       )}
-    </AnimatePresence>
+    </div>
   );
-}
-
-function DockIcon({ children, className = '' }) {
-  return <div className={`dock-icon ${className}`}>{children}</div>;
 }
 
 export default function Dock({
@@ -115,21 +112,30 @@ export default function Dock({
   spring = { mass: 0.1, stiffness: 150, damping: 12 },
   magnification = 70,
   distance = 200,
-  panelHeight = 158,
+  panelHeight = 68,
   dockHeight = 256,
   baseItemSize = 50
 }) {
   const mouseX = useMotionValue(Infinity);
-  const isHovered = useMotionValue(0);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const maxHeight = useMemo(
     () => Math.max(dockHeight, magnification + magnification / 2 + 4),
     [magnification, dockHeight]
   );
-  const heightRow = useTransform(isHovered, [0, 1], [panelHeight, isVertical ? maxHeight : panelHeight]);
-  const height = useSpring(heightRow, { ...spring, damping: spring.damping * 1.5 });
 
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
@@ -163,10 +169,11 @@ export default function Dock({
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, [handleScroll]);
+
   return (
     <motion.div 
       style={{ 
-        height: isVertical ? height : panelHeight, 
+        height: isVertical ? maxHeight : panelHeight, 
         scrollbarWidth: 'none',
         willChange: 'height'
       }} 
@@ -174,7 +181,6 @@ export default function Dock({
     >
       <motion.div
         onMouseMove={({ pageX, pageY }) => {
-          isHovered.set(1);
           if (isVertical) {
             mouseX.set(pageY);
           } else {
@@ -182,10 +188,9 @@ export default function Dock({
           }
         }}
         onMouseLeave={() => {
-          isHovered.set(0);
           mouseX.set(Infinity);
         }}
-        className={`${isVertical ? 'dock-panel-right' : 'dock-panel'} ${className} ${!isVisible ? 'dock-hidden' : ''}`}
+        className={`${isVertical ? 'dock-panel-right' : 'dock-panel'} ${isMobile ? 'dock-panel-mobile' : 'dock-panel-desktop'} ${className} ${!isVisible ? 'dock-hidden' : ''}`}
         style={{ height: panelHeight }}
         role="toolbar"
         aria-label="Application dock"
@@ -201,9 +206,13 @@ export default function Dock({
             magnification={magnification}
             baseItemSize={baseItemSize}
             isVertical={isVertical}
+            isMobile={isMobile}
           >
-            <DockIcon>{item.icon}</DockIcon>
-            <DockLabel isVertical={isVertical}>{item.label}</DockLabel>
+            <DockContent 
+              icon={item.icon} 
+              label={item.label} 
+              isMobile={isMobile}
+            />
           </DockItem>
         ))}
       </motion.div>

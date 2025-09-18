@@ -16,19 +16,19 @@ const Skills = () => {
   // Technology-specific brand colors with CSS custom properties
   const techColors: { [key: string]: { bg: string; text: string; border: string; spotlight: string } } = {
     // Cloud Platforms
-    'AWS': { 
+    'Microsoft Azure': { 
       bg: 'rgba(255, 153, 0, 0.15)', 
       text: '#FF9900', 
       border: 'rgba(255, 153, 0, 0.3)',
       spotlight: 'rgba(255, 153, 0, 0.4)'
     },
-    'Azure': { 
+    'Amazon Web Services (AWS)': { 
       bg: 'rgba(0, 120, 212, 0.15)', 
       text: '#0078D4', 
       border: 'rgba(0, 120, 212, 0.3)',
       spotlight: 'rgba(0, 120, 212, 0.4)'
     },
-    'Google Cloud': { 
+    'Google Cloud Platform (GCP)': { 
       bg: 'rgba(234, 67, 53, 0.15)', 
       text: '#EA4335', 
       border: 'rgba(234, 67, 53, 0.3)',
@@ -152,20 +152,32 @@ const Skills = () => {
     {
       title: 'Cloud Platforms',
       icon: Cloud,
-      skills: ['AWS', 'Azure', 'Google Cloud'],
+      skills: ['Microsoft Azure', 'Amazon Web Services (AWS)', 'Google Cloud Platform (GCP)'],
       color: 'blue'
     },
     {
       title: 'Containerization',
       icon: Container,
-      skills: ['Docker', 'Kubernetes', 'Helm', 'Docker Compose'],
+      skills: ['Docker', 'Kubernetes', 'Helm'],
       color: 'teal'
     },
     {
-      title: 'CI/CD',
+      title: 'Continous Integration (CI)',
       icon: GitBranch,
-      skills: ['Jenkins', 'GitHub Actions', 'Bamboo'],
+      skills: ['Azure DevOps', 'Bamboo', 'GitHub Actions', 'Jenkins'],
       color: 'purple'
+    },
+        {
+      title: 'Continous Deployment (CD)',
+      icon: GitBranch,
+      skills: ['Octopus Deploy'],
+      color: 'purple'
+    },
+    {
+      title: 'Version Control',
+      icon: GitBranch,
+      skills: ['GitHub', 'Bitbucket'],
+      color: 'grey'
     },
     {
       title: 'Infrastructure',
@@ -182,9 +194,21 @@ const Skills = () => {
     {
       title: 'Security',
       icon: Shield,
-      skills: ['OWASP', 'Vault', 'SSL/TLS', 'Security Scanning'],
+      skills: ['SonarQube', 'SonarCloud', 'Coverity'],
       color: 'red'
-    }
+    },
+            {
+      title: 'Ticket Management',
+      icon: GitBranch,
+      skills: ['Atlassian Jira'],
+      color: 'purple'
+    },
+               {
+      title: 'Scripting',
+      icon: GitBranch,
+      skills: ['PowerSehll', 'Python'],
+      color: 'purple'
+    },
   ];
 
   const getColorClasses = (color: string) => {
@@ -200,7 +224,7 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" ref={skillsContainerRef} className="py-12 sm:py-16 lg:py-20 bg-gray-50 relative px-4 sm:px-6 lg:pl-20">
+    <section id="skills" ref={skillsContainerRef} className="py-12 sm:py-16 lg:py-20 bg-gray-50 relative px-4 sm:px-6 lg:pl-20 pt-20 sm:pt-24 lg:pt-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <div className="mb-6">

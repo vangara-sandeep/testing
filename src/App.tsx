@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { Home, User, Code, FolderOpen, Mail, Github, Linkedin } from 'lucide-react';
+import { Home, User, Code, FolderOpen, Mail, Award } from 'lucide-react';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Dock from './components/Dock';
@@ -48,6 +49,13 @@ function App() {
       label: 'Projects', 
       onClick: () => {
         document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+    { 
+      icon: <Award size={18} />, 
+      label: 'Certifications', 
+      onClick: () => {
+        document.getElementById('certifications')?.scrollIntoView({ behavior: 'smooth' });
       }
     },
     { 
@@ -102,6 +110,7 @@ function App() {
       <About />
       <Skills />
       <Projects />
+      <Certifications />
       <Contact />
       <Footer />
       
